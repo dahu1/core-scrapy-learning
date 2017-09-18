@@ -2,7 +2,8 @@
 import scrapy
 from coolscrapy.items import CoolscrapyItem
 import sys
-
+reload(sys)
+sys.setdefaultencoding("utf-8")
 
 class HuxiuSpider(scrapy.Spider):
     name = 'huxiu'
@@ -16,8 +17,9 @@ class HuxiuSpider(scrapy.Spider):
             item['link'] = sel.xpath('h2/a/@href')[0].extract()
             url = response.urljoin(item['link'])
             item['desc'] = sel.xpath('div[@class="mob-sub"]/text()').extract_first()
-            # print item['title'] ,item['link'] ,item['desc']
-            yield scrapy.Request(url, callback=self.parse_article)  #找到自己想要的链接再进行处理
+            print item['title'] ,item['link'] ,item['desc']
+            yield item
+            # yield scrapy.Request(url, callback=self.parse_article)  #找到自己想要的链接再进行处理
     def parse_article(self, response):
         detail = response.xpath('//div[@class="article-wrap"]')
         item = CoolscrapyItem()
