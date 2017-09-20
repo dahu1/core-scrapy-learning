@@ -58,11 +58,11 @@ class TiebSpider(scrapy.Spider):
                 './/a[@alog-group="p_author"]/text()').extract_first()
 
             link = i.xpath('').extract_first('.//a[@class="lzl_link_unfold"]/text()').extract_first()
-            # link='回复(3)'
-            if link.endswith(')'):
-                src = i.xpath('').extract_first('.//a[@class="lzl_link_unfold"]/@href').extract_first()
-                yield Request(response.urljoin(src), callback=self.sub_comment_parse,
-                              meta={'item': item, 'index': index})
+            # # link='回复(3)'
+            # if link.endswith(')'):
+            #     src = i.xpath('').extract_first('.//a[@class="lzl_link_unfold"]/@href').extract_first()
+                # yield Request(response.urljoin(src), callback=self.sub_comment_parse,
+                #               meta={'item': item, 'index': index})
             # try :
             # index_reply=1
             # item["comment"]['reply%s' % index]['other']=dict()
