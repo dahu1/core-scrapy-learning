@@ -15,4 +15,7 @@ class CoolscrapyItem(scrapy.Item):
     link = scrapy.Field()     # 链接
     desc = scrapy.Field()     # 简述
     posttime = scrapy.Field() # 发布时间
+    image_urls = scrapy.Field()
+    # images = scrapy.Field()
+    _id=scrapy.Field()
     pass
