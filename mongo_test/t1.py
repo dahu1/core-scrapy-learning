@@ -5,7 +5,9 @@
 # 
 import datetime,time
 from pymongo import MongoClient
-
+import sys
+reload(sys)
+sys.setdefaultencoding("utf-8")
 #连接到数据库
 # client = MongoClient('localhost', 27017)
 client = MongoClient("127.0.0.1", 27017)
@@ -15,7 +17,7 @@ print client.database_names()   #database list
 
 #delete specific database
 # client.drop_database('tieba')   #delete
-db = client['dahu']            #没有就新建
+db = client['tieba']            #没有就新建
 
 #list all collection names
 print db.collection_names(include_system_collections=False)
@@ -38,5 +40,9 @@ post = {
 # posts.delete_one({'food':''})
 # db['mycollection'].insert(post)   #db[XXX] 没有就新建
 # print post_id
-
-db.posts.update_one({'i': 1})
+# db.posts.update_one({'i': 1})
+db['mycollection'].update_one({'i': 1}, {'$set': {'far': 'wocao'}},upsert=True)
+# for i in db['零度君上'].find({"_id" : "https://tieba.baidu.com/p/47282757894"}):
+#     print i
+dbname='mycollection'
+print db[dbname].find({'far': 'wocao'}).count()

@@ -21,7 +21,19 @@ class TiebaPipeline(object):
         pass
     def process_item(self, item, spider):
         # self.db['零度君上'].insert_one(dict(item))    #注意这里是一个个插入,insert_many会报错
-        self.db['零度君上'].update_one({'_id':item['_id']},{"$set":item},upsert=True)
+        # with open('new_item','a')as f:
+        #     f.write("new item!"+'\n')
+        #     for key in item:
+        #         f.write(key+' ')
+        dbname='零度君上'
+        if self.db[dbname].find({"_id":item['_id']}).count():
+            if item['panduan'] == '1':
+                self.db[dbname].update_one({'_id': item['_id']}, {"$set":{"comment":item['comment']}}, upsert=True)
+            elif item['panduan'] == '2':
+                self.db[dbname].update_one({'_id': item['_id']}, {"$set":{"comment_item":item['comment_item']}}, upsert=True)
+            pass
+        else:
+            self.db[dbname].update_one({'_id': item['_id']}, {"$set": item}, upsert=True)
         pass
     def close_spider(self, spider):
         pass

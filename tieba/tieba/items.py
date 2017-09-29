@@ -18,5 +18,7 @@ class TiebaItem(scrapy.Item):
     describ = scrapy.Field()
     comment = scrapy.Field()
     comment_num = scrapy.Field()
+    panduan = scrapy.Field()
+    comment_item= scrapy.Field()
 
     pass
